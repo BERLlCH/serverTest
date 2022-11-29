@@ -1,0 +1,33 @@
+{
+  "kind": "collectionType",
+  "collectionName": "footer_fields",
+  "info": {
+    "singularName": "footer-field",
+    "pluralName": "footer-fields",
+    "displayName": "Footer Field",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "image": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "header": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    }
+  }
+}

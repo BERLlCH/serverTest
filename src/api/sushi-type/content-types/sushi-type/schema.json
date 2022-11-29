@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "sushi_types",
+  "info": {
+    "singularName": "sushi-type",
+    "pluralName": "sushi-types",
+    "displayName": "Sushi Type"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "photo": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": true
+    }
+  }
+}

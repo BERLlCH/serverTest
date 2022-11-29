@@ -1,0 +1,49 @@
+{
+  "kind": "collectionType",
+  "collectionName": "orders",
+  "info": {
+    "singularName": "order",
+    "pluralName": "orders",
+    "displayName": "Order",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "phone_number": {
+      "type": "string"
+    },
+    "delivery_type": {
+      "type": "enumeration",
+      "enum": [
+        "delivery",
+        "byself"
+      ]
+    },
+    "count_of_people": {
+      "type": "integer"
+    },
+    "comment": {
+      "type": "richtext"
+    },
+    "address": {
+      "type": "string"
+    },
+    "dishes": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::dish.dish"
+    },
+    "count_of_dishes": {
+      "type": "json"
+    },
+    "options": {
+      "type": "json"
+    }
+  }
+}

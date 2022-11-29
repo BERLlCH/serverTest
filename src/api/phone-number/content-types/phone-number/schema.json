@@ -1,0 +1,21 @@
+{
+  "kind": "singleType",
+  "collectionName": "phone_numbers",
+  "info": {
+    "singularName": "phone-number",
+    "pluralName": "phone-numbers",
+    "displayName": "Phone Number",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "number": {
+      "type": "string",
+      "regex": "^[+]380\\d{3}\\d{2}\\d{2}\\d{2}$",
+      "required": false
+    }
+  }
+}

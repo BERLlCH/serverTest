@@ -1,0 +1,33 @@
+{
+  "kind": "singleType",
+  "collectionName": "discount_infos",
+  "info": {
+    "singularName": "discount-info",
+    "pluralName": "discount-infos",
+    "displayName": "Discount Info",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "image": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "header": {
+      "type": "string"
+    },
+    "description": {
+      "type": "richtext"
+    }
+  }
+}

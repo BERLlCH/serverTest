@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "pay_blocks",
+  "info": {
+    "singularName": "pay-block",
+    "pluralName": "pay-blocks",
+    "displayName": "Pay Block"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "image": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": true
+    },
+    "description": {
+      "type": "string"
+    }
+  }
+}

@@ -1,0 +1,22 @@
+version: "3.5"
+
+services:
+  strapiexample:
+    container_name: strapiexample
+    restart: unless-stopped
+    env_file: .env
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "1337:1337"
+
+  postgres:
+    image: postgres:14.3-alpine
+    container_name: db
+    ports:
+      - "5444:5432"
+    environment:
+      - POSTGRES_PASSWORD=qwerty123
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=neptune
