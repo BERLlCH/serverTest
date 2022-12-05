@@ -4,7 +4,7 @@
  */
 const TelegramBot = require('node-telegram-bot-api')
 
-// const bot = new TelegramBot(process.env.BOT_TOKEN, {polling: true})
+const bot = new TelegramBot(process.env.BOT_TOKEN, {polling: true})
 const { createCoreController } = require('@strapi/strapi').factories;
 
 module.exports = createCoreController('api::order.order', ({strapi})=>({
@@ -29,7 +29,7 @@ module.exports = createCoreController('api::order.order', ({strapi})=>({
         populate: "*"
       });
 
-      // await bot.sendMessage(443023633, this.telegramString(orderedDishes), {parse_mode: "HTML"})
+      await bot.sendMessage(443023633, this.telegramString(orderedDishes), {parse_mode: "HTML"})
 
       ctx.body = orderedDishes;
     }catch (e){
@@ -40,7 +40,6 @@ module.exports = createCoreController('api::order.order', ({strapi})=>({
   telegramString(orderedDishes){
     let orderInformation = `<b>Order #${orderedDishes.id}</b>\n`;
     let orderSum = 0
-    console.log(orderedDishes.dishes[0].options[0]);
     for (let i = 0; i < orderedDishes.dishes.length; i++) {
       orderInformation += `${i+1}. ${orderedDishes.dishes[i].header}: ${orderedDishes.dishes[i].price} (${orderedDishes.count_of_dishes[i]}) * `+
         `${orderedDishes.dishes[i].price}\n Інгрідієнт на вибір: ${orderedDishes.dishes[i].options[orderedDishes.options[i]]}\n`

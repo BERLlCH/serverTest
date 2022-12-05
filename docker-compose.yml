@@ -10,13 +10,61 @@ services:
       dockerfile: Dockerfile
     ports:
       - "1337:1337"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.node-server.rule=Host(`admin.neptunetest.pp.ua`)"
+      - "traefik.http.routers.node-server.entrypoints=websecure"
+      - "traefik.http.routers.node-server.tls.certresolver=myresolver"
+      - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
+      - "traefik.http.routers.redirs.rule=hostregexp(`{host:.+}`)"
+      - "traefik.http.routers.redirs.entrypoints=web"
+      - "traefik.http.routers.redirs.middlewares=redirect-to-https"
 
   postgres:
     image: postgres:14.3-alpine
     container_name: db
-    ports:
-      - "5444:5432"
     environment:
       - POSTGRES_PASSWORD=qwerty123
       - POSTGRES_USER=postgres
       - POSTGRES_DB=neptune
+      
+  reverse-proxy:
+    image: traefik:v2.4
+    container_name: "traefik"
+    command:
+      - "--api.insecure=true"
+      - "--api.dashboard=true"
+      - "--api.debug=true"
+      - "--providers.docker=true"
+      - "--log.LEVEL=DEBUG"
+      - "--entryPoints.web.address=:80"
+      - "--entryPoints.websecure.address=:443"
+      - "--providers.docker.exposedbydefault=false"
+      - "--certificatesresolvers.myresolver.acme.httpchallenge=true"
+      - "--certificatesresolvers.myresolver.acme.httpchallenge.entrypoint=web"
+      - "--certificatesresolvers.myresolver.acme.email=hello@paularah.com"
+      - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
+    ports:
+      - "443:443"
+      - "80:80"
+      - "8080:8080"
+    volumes:
+      - "./letsencrypt:/letsencrypt"
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      
+  client:
+    container_name: client
+    build:
+        context: ./client
+        dockerfile: Dockerfile
+    ports:
+      - "3030:80"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.client.rule=Host(`neptunetest.pp.ua`)"
+      - "traefik.http.routers.client.entrypoints=websecure"
+      - "traefik.http.routers.client.tls.certresolver=myresolver"
+      - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
+      - "traefik.http.routers.redirs.rule=hostregexp(`{host:.+}`)"
+      - "traefik.http.routers.redirs.entrypoints=web"
+      - "traefik.http.routers.redirs.middlewares=redirect-to-https"

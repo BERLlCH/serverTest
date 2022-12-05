@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div id="dish_container">
+
+    </div>
+</body>
+<script>
+    async function test() {
+        let response = await fetch("https://neptunetest.pp.ua/api/dishes?populate=photo&filters[type][$eq]=premium",{
+            method: "GET"
+        });
+        let json = await response.json();
+        let dish_container = document.getElementById("dish_container")
+        console.log(json)
+        for (let i = 0; i < json.data.length; i++) {
+            let dish = document.createElement("div")
+            let header = document.createElement("p")
+            let headerText = document.createTextNode(json.data[i].attributes.header);
+            let image = document.createElement("img");
+            image.src = `http://test1.neptunetest.pp.ua${json.data[i].attributes.photo.data.attributes.formats.small.url}`
+            header.classList.add("penis");
+            header.appendChild(headerText);
+            dish.appendChild(header);
+            dish.appendChild(image);
+            dish_container.appendChild(dish);
+        }
+
+        console.log(json.data[0].attributes.photo.data.attributes.formats.small.url)
+    }
+
+    test()
+</script>
+</html>
